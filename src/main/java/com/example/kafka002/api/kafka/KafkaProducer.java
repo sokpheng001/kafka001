@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
@@ -21,10 +20,11 @@ public class KafkaProducer {
     private final UserRepository userRepository;
 //
     public UserResponseDto sendMessage(CreateUserDto createUserDto){
-        User user = new User(new Random().nextInt(9999999) ,createUserDto.name(), createUserDto.email(), UUID.randomUUID().toString()+ LocalDateTime.now(), false);
+        User user = new User(new Random().nextInt(9999999) ,createUserDto.name(), createUserDto.email(), UUID.randomUUID().toString(), false);
         userRepository.save(user);
         UserResponseDto userResponseDto  = UserMapper.mapFromUserToUserResponse(user);
         kafkaTemplate.send(topic,userResponseDto);
+
         return userResponseDto;
     }
 }
