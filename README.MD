@@ -1,4 +1,4 @@
-# Spring boot Kafka 🔖
+# Spring boot with Kafka 🔖
 
 1. This repository is written to process the object data over the network 
 using Kafka 🧈
